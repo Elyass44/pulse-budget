@@ -1,0 +1,52 @@
+2025-07-19 09:38:36,564 INFO Set uid to user 0 succeeded
+2025-07-19 09:38:36,570 INFO supervisord started with pid 1
+2025-07-19 09:38:37,574 INFO spawned: 'nginx' with pid 7
+2025-07-19 09:38:37,576 INFO spawnerr: can't find command 'php-fpm8.2'
+2025-07-19 09:38:38,593 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-19 09:38:38,593 INFO spawnerr: can't find command 'php-fpm8.2'
+2025-07-19 09:38:40,603 INFO spawnerr: can't find command 'php-fpm8.2'
+2025-07-19 09:38:43,628 INFO spawnerr: can't find command 'php-fpm8.2'
+2025-07-19 09:38:43,628 INFO gave up: php-fpm entered FATAL state, too many start retries too quickly
+2025-07-19 09:39:53,334 WARN received SIGQUIT indicating exit request
+2025-07-19 09:39:53,335 INFO waiting for nginx to die
+2025-07-19 09:39:54,394 INFO stopped: nginx (exit status 0)
+2025-07-19 09:40:00,553 INFO Set uid to user 0 succeeded
+2025-07-19 09:40:00,555 INFO supervisord started with pid 1
+2025-07-19 09:40:01,558 INFO spawned: 'nginx' with pid 7
+2025-07-19 09:40:01,559 INFO spawnerr: can't find command 'php-fpm8.2'
+2025-07-19 09:40:02,569 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-19 09:40:02,569 INFO spawnerr: can't find command 'php-fpm8.2'
+2025-07-19 09:40:04,571 INFO spawnerr: can't find command 'php-fpm8.2'
+2025-07-19 09:40:07,576 INFO spawnerr: can't find command 'php-fpm8.2'
+2025-07-19 09:40:07,576 INFO gave up: php-fpm entered FATAL state, too many start retries too quickly
+2025-07-19 09:41:31,086 WARN received SIGQUIT indicating exit request
+2025-07-19 09:41:31,086 INFO waiting for nginx to die
+2025-07-19 09:41:32,135 INFO stopped: nginx (exit status 0)
+2025-07-19 09:41:43,927 INFO Set uid to user 0 succeeded
+2025-07-19 09:41:43,929 INFO supervisord started with pid 1
+2025-07-19 09:41:44,933 INFO spawned: 'nginx' with pid 7
+2025-07-19 09:41:44,935 INFO spawnerr: can't find command 'php-fpm8.2'
+2025-07-19 09:41:45,948 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-19 09:41:45,948 INFO spawnerr: can't find command 'php-fpm8.2'
+2025-07-19 09:41:47,952 INFO spawnerr: can't find command 'php-fpm8.2'
+2025-07-19 09:41:50,955 INFO spawnerr: can't find command 'php-fpm8.2'
+2025-07-19 09:41:50,956 INFO gave up: php-fpm entered FATAL state, too many start retries too quickly
+2025-07-19 09:44:16,205 WARN received SIGQUIT indicating exit request
+2025-07-19 09:44:16,205 INFO waiting for nginx to die
+2025-07-19 09:44:17,250 INFO stopped: nginx (exit status 0)
+2025-07-19 09:46:51,939 INFO Set uid to user 0 succeeded
+2025-07-19 09:46:51,944 INFO supervisord started with pid 1
+2025-07-19 09:46:52,947 INFO spawned: 'nginx' with pid 7
+2025-07-19 09:46:52,950 INFO spawned: 'php-fpm' with pid 8
+2025-07-19 09:46:54,441 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-19 09:46:54,442 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-19 09:46:59,450 WARN received SIGQUIT indicating exit request
+2025-07-19 09:46:59,451 INFO waiting for nginx, php-fpm to die
+2025-07-19 09:46:59,457 INFO stopped: php-fpm (exit status 0)
+2025-07-19 09:46:59,511 INFO stopped: nginx (exit status 0)
+2025-07-19 09:47:06,126 INFO Set uid to user 0 succeeded
+2025-07-19 09:47:06,130 INFO supervisord started with pid 1
+2025-07-19 09:47:07,134 INFO spawned: 'nginx' with pid 7
+2025-07-19 09:47:07,137 INFO spawned: 'php-fpm' with pid 8
+2025-07-19 09:47:08,196 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-19 09:47:08,196 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)

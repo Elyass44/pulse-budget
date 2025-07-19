@@ -1,0 +1,57 @@
+services:
+  database:
+    image: postgres:15-alpine
+    container_name: pulse_budget_db
+    environment:
+      POSTGRES_DB: pulse_budget
+      POSTGRES_USER: pulse_user
+      POSTGRES_PASSWORD: pulse_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - pulse_network
+
+  # Symfony API Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: pulse_budget_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - /app/vendor
+    environment:
+      DATABASE_URL: "postgresql://pulse_user:pulse_password@database:5432/pulse_budget"
+    depends_on:
+      - database
+    networks:
+      - pulse_network
+
+  # Vue Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: pulse_budget_frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      VITE_API_BASE_URL: http://localhost:8000/api/v1
+    depends_on:
+      - backend
+    networks:
+      - pulse_network
+
+volumes:
+  postgres_data:
+
+networks:
+  pulse_network:
+    driver: bridge
