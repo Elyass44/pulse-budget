@@ -10,3 +10,8 @@
 ###< symfony/framework-bundle ###
 
 supervisord.log
+supervisord.pid
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###

@@ -8,7 +8,10 @@ help: ## Show available commands
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
 bash: ## Enter backend container shell
-	docker compose exec backend sh
+	docker compose exec --user $(shell id -u):$(shell id -g) backend sh
+
+bash-root: ## Enter backend container shell
+	docker compose exec -it backend sh
 
 logs: ## Show backend logs
 	docker compose logs -f backend
@@ -21,3 +24,7 @@ cache-clear: ## Clear Symfony cache
 
 migrate: ## Run database migrations
 	docker compose exec backend php bin/console doctrine:migrations:migrate --no-interaction
+
+require: ## Install new package (usage: make require PACKAGE=vendor/package)
+	docker compose exec backend composer require $(PACKAGE)
+	composer install
