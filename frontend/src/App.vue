@@ -1,85 +1,102 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <div id="app">
+    <!-- Navigation Header (optional) -->
+    <header class="app-header">
+      <nav class="nav-container">
+        <div class="brand">
+          <router-link to="/" class="brand-link">
+            📊 Pulse Budget
+          </router-link>
+        </div>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <div class="nav-links">
+          <RouterLink to="/">Home</RouterLink>
+          <RouterLink to="/dashboard">Dashboard</RouterLink>
+          <RouterLink to="/login">Login</RouterLink>
+        </div>
       </nav>
-    </div>
-  </header>
+    </header>
 
-  <RouterView />
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!--
+        RouterView: This is where route components are rendered
+        When user navigates to /dashboard, DashboardView appears here
+      -->
+      <router-view />
+    </main>
+  </div>
 </template>
 
+<script setup lang="ts">
+/**
+ * Root App Component
+ *
+ * This component wraps the entire application.
+ * RouterView renders the component for the current route.
+ *
+ * Key concepts:
+ * - <router-view />: Shows the component for current route
+ * - <router-link>: Creates navigation links (instead of <a> tags)
+ * - router-link automatically adds 'active' class for current route
+ */
+
+// No logic needed yet - this is a presentational component
+// Later we'll add auth state checking for conditional navigation
+</script>
+
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+.app-header {
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+.brand-link {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #3b82f6;
+  text-decoration: none;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
+.nav-links {
+  display: flex;
+  gap: 20px;
 }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
+.nav-link {
+  color: #6b7280;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.2s;
 }
 
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+.nav-link:hover {
+  color: #3b82f6;
+  background: #f3f4f6;
 }
 
-nav a:first-of-type {
-  border: 0;
+/* Vue Router automatically adds these classes */
+.nav-link.router-link-active {
+  color: #3b82f6;
+  background: #eff6ff;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+.main-content {
+  min-height: calc(100vh - 60px);
+  padding: 20px;
 }
 </style>
