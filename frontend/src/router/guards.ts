@@ -10,8 +10,15 @@
  * - beforeRouteEnter: Runs before entering a component
  */
 
-import type {NavigationGuardNext, RouteLocationNormalized} from 'vue-router'
+import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 
+/**
+ * Check if user is authenticated
+ *
+ * For now, this is a simple check. Later we'll integrate with Pinia auth store.
+ *
+ * @returns boolean - true if user is logged in
+ */
 function isAuthenticated(): boolean {
   // TODO: Replace with actual auth store check
   // For now, check if JWT token exists in localStorage
@@ -35,20 +42,24 @@ export function authGuard(
   from: RouteLocationNormalized,
   next: NavigationGuardNext
 ) {
+  // Check if the route requires authentication
   const requiresAuth = to.meta.requiresAuth
 
+  // If route doesn't require auth, allow access
   if (!requiresAuth) {
     next() // Continue to the route
     return
   }
 
+  // Route requires auth - check if user is logged in
   if (isAuthenticated()) {
-    next()
+    next() // User is authenticated, allow access
   } else {
-    // Redirect to login page if not authenticated
+    // User not authenticated, redirect to login
     next({
       name: 'login',
-      query: {redirect: to.fullPath}
+      // Save the attempted URL so we can redirect back after login
+      query: { redirect: to.fullPath }
     })
   }
 }
@@ -57,6 +68,7 @@ export function authGuard(
  * Guest Guard (for login page)
  *
  * Prevents authenticated users from accessing login page
+ * (redirects them to dashboard instead)
  */
 export function guestGuard(
   to: RouteLocationNormalized,
@@ -67,14 +79,14 @@ export function guestGuard(
   const hideForAuthenticated = to.meta.hideForAuthenticated
 
   if (!hideForAuthenticated) {
-    next()
+    next() // Route doesn't have this restriction
     return
   }
 
+  // If user is already authenticated, redirect to dashboard (home)
   if (isAuthenticated()) {
-    // User is already authenticated, redirect to dashboard
-    next({name: 'dashboard'})
+    next({ name: 'dashboard' }) // Dashboard is now the home page
   } else {
-    next()
+    next() // User not authenticated, can access login page
   }
 }

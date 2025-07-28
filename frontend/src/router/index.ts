@@ -1,7 +1,7 @@
 /**
  * Vue Router Configuration
  *
- * This file defines all the routes in the application.
+ * This file defines all the routes in our application.
  *
  * Key concepts:
  * - Routes: URL patterns that map to Vue components
@@ -11,22 +11,33 @@
  */
 
 import { createRouter, createWebHistory } from 'vue-router'
-import type { RouteRecordRaw } from 'vue-router' // TypeScript type of array
+import type { RouteRecordRaw } from 'vue-router'
 
-import HomeView from '../views/HomeView.vue'
+// Import views that should be loaded immediately (small, critical pages)
+import HomeView from '@/views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 
+/**
+ * Route Definitions
+ *
+ * Architecture simplifiée :
+ * - "/" → Dashboard (page d'accueil) - protégée par auth
+ * - "/login" → Page de connexion
+ * - Pas de page d'accueil séparée
+ */
 const routes: RouteRecordRaw[] = [
-  // PUBLIC ROUTES - No authentication required
+  // HOME = DASHBOARD (Page d'accueil protégée)
   {
     path: '/',
-    name: 'home',
-    component: HomeView,
+    name: 'dashboard',
+    component: () => import('@/views/DashboardView.vue'),
     meta: {
-      title: 'Accueil',
-      requiresAuth: false
+      title: 'Tableau de bord',
+      requiresAuth: true
     }
   },
+
+  // LOGIN PAGE - Public route
   {
     path: '/login',
     name: 'login',
@@ -38,18 +49,27 @@ const routes: RouteRecordRaw[] = [
     }
   },
 
-  // PROTECTED ROUTES - Authentication required
+  // CATCH-ALL ROUTE - Must be last (404 handler)
   {
-    path: '/dashboard',
-    name: 'dashboard',
-    component: () => import('@/views/DashboardView.vue'), // Lazy loading : View is loaded only when route is accessed
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: () => import('@/views/NotFoundView.vue'),
     meta: {
-      title: 'Tableau de bord',
-      requiresAuth: true
+      title: 'Page non trouvée',
+      requiresAuth: false
     }
   }
 ]
 
+// Import our guard functions
+import { authGuard, guestGuard } from './guards'
+
+/**
+ * Create Router Instance
+ *
+ * createWebHistory(): Uses the HTML5 History API for clean URLs
+ * Alternative: createWebHashHistory() for hash-based routing (#/about)
+ */
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
@@ -69,16 +89,15 @@ const router = createRouter({
  * Order matters: guards run in the order they're defined.
  */
 
-import { authGuard, guestGuard } from './guards'
-
 // 1. Authentication Guard - Check if user can access protected routes
 router.beforeEach(authGuard)
 
-// 2. Guest Guard - Prevent authenticated users from accessing hideForAuthenticated page
+// 2. Guest Guard - Prevent authenticated users from accessing login page
 router.beforeEach(guestGuard)
 
 // 3. Set page title based on route meta
 router.beforeEach((to, from, next) => {
+  // Update document title if route has title in meta
   if (to.meta.title) {
     document.title = `${to.meta.title} - Pulse Budget`
   }
